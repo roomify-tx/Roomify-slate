@@ -1,0 +1,66 @@
+<footer>
+<div class="footer-main">
+<div class="section1">
+  {%- assign footer_linklist = section.settings.footer_linklist -%}
+  {% if linklists[footer_linklist].links.size > 0 %}
+    <ul>
+      {% for link in linklists[footer_linklist].links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+<div class="section2">
+{% include 'newsletter' %}
+</div>
+<div class="section3">
+{%- assign second_footer_linklist = section.settings.second_footer_linklist -%}
+  {% if linklists[second_footer_linklist].links.size > 0 %}
+    <ul>
+      {% for link in linklists[second_footer_linklist].links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+
+</div>
+  <div class="bottom">
+  <div class="footer-bottom">
+  <div class="bottom_left">
+        <small> &copy; {{ 'now' | date: "%Y" }} {{ shop.name | link_to: '/' }}  |  All rights reserved </small>
+  </div>
+  <div class="bottom_right">
+    <small>Privacy Policy | Terms of Service </small>
+  </div>
+
+  </div>
+  </div>
+</footer>
+
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "footer_linklist",
+        "label": "First menu",
+        "default": "footer"
+      },
+      {
+        "type": "link_list",
+        "id": "second_footer_linklist",
+        "label": "Second menu",
+        "default": "footer"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": "Show payment icons",
+        "default": false
+      }
+    ]
+  }
+
+{% endschema %}

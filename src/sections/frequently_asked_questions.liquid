@@ -1,0 +1,65 @@
+{% assign faqs = section.blocks %}
+<div>
+  <h2>{{section.settings.title}}</h2>
+   <hr>
+  {% if faqs %}
+   {% for block in section.blocks %}
+   <div class="faq-item" {{ block.shopify_attributes }}>
+     <p class="faq-question"> {{ block.settings.question }}</p> <a class="expand">+</a>
+     <hr>
+     <p class="faq-answer">{{ block.settings.answer }}</p>
+   </div> 
+   {% endfor %}
+   {% endif %}
+<script>
+    $(document).ready(function($){
+   $('.faq-item .faq-answer').hide();
+      $('.faq-item .expand').click(fuction(){
+      	$(this).next('.faq-answer').slideToggle(); 
+      });
+});
+   )};
+  </script>  
+  
+
+{% schema %}
+  {
+    "name": "FAQ's",
+    "settings": [
+   		{
+   		"id": "title",
+   		"type": "text",
+   		"label": "Header of FAQ Section",
+   		"default": "Frequently Asked Questions"
+   		}
+   
+   ],
+   "blocks":[
+   		{
+   		"type": "faq",
+   		"name": "faq",
+   		"settings": [
+   				{
+   				"id": "question",
+   				"type": "text", 
+   				"label": "Question",
+   				"default": "Enter Question"
+   				},
+   				{
+   				"id":"answer",
+   				"type":"text",
+   				"label": "Answers",
+   				"default": "Enter the answer here"
+   				}
+   			]
+   		}
+   ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+
+{% endjavascript %}

@@ -1,0 +1,45 @@
+.collection_container{
+  @include media-query($medium-down){
+    display: none;
+  }
+  display:flex;
+}
+.collection_filter {
+  width: 25vw;
+  margin-left: 24px;
+
+}
+.product_container {
+  @include media-query($medium-down){
+    display: block;
+    width: 100vw;
+  }
+  display: flex;
+  width: 80vw;
+  .product{
+    margin: 12px;
+    width: 33.3%;
+  }
+}
+
+.compare {
+  h3 {
+    text-align: center;
+  }
+}
+
+.two_sides {
+  @include media-query($medium-down) {
+    display: block;
+    width:100%;
+  }
+  display: flex;
+  justify-content: space-around;
+  width: 60vw;
+  margin: 0 auto;
+  .side_one,
+  .side_two {
+    width: 50%;
+    margin: 24px;
+  }
+}
