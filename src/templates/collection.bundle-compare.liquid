@@ -1,12 +1,11 @@
+<div class="site-notice">
+<p>Free Shipping on all bundles</p>
+</div>
 {% paginate collection.products by 12 %}
-  <header role="banner">
-    <h1>{{ collection.title }}</h1>
-    {% if collection.description != blank %}
-      <div class="rte">
-        {{ collection.description }}
-      </div>
-    {% endif %}
-
+  <div class="collection-container">
+    <div class="collection-bundle">
+    <div class="collection-filter">
+    <h3>filter</h3>
     {% if collection.all_tags.size > 0 %}
       <ul>
         {% for tag in collection.all_tags %}
@@ -22,17 +21,16 @@
         {% endfor %}
       </ul>
     {% endif %}
-  </header>
-  <div class="collection_container">
-    <div class="collection_filter">
-    <h3>filter</h3>
     </div>
-    <div class="product_container">
+    <div class="main-container">
+    <div class="product-container">
     {% for product in collection.products %}
       <div class="product">
-      <p>
-          <a href="">{{ product.title }}</a>
-        </p>
+      <div class="product-heading">
+        <span class="product-title">
+          {{ product.title }}
+        </span>
+      </div>
         {% if product.featured_image != blank %}
           <a href="{{ product.url | within: collection }}">
             {% include 'responsive-image' with
@@ -41,7 +39,6 @@
               max_height: 800
             %}
           </a>
-          <a href="{{ product.url | within: collection }}">View Details</a>
         {% endif %}
 
         
@@ -76,6 +73,37 @@
             {{ 'products.product.sold_out' | t }}
           {% endunless %}
         </p>
+        <div class="swatches">
+        {% for option in product.options %}
+        {% if option == 'Color' %}
+        {% assign index = forloop.index0 %}
+        {% assign colorlist = "" %}
+          {% assign color_swatch = "" %}
+        {%- assign color = "" -%}
+        {% for variant in product.variants limit: 4 %}
+          {%- capture color -%}
+        {{ variant.options[index] }}
+        {% endcapture %}
+        {% unless colorlist contains color %}
+<a href=""><img src="{{- color | handleize | append: '.png' | file_img_url: '64x64' -}}"
+        alt="{{- colorlist[forloop.index0] -}}" width="32" height="32" data-swatch-img="{{ color }}"  /></a>
+        {% capture tempList %}
+{{colorlist | append: color | append: ;}}
+{% endcapture %}
+        {% assign colorlist = tempList %} 
+        {% assign color_swatch = colorlist | split: ' ' %}
+         
+      {% endunless %}
+    {% endfor %}
+           {% if color_swatch.size > 4 %}
+          {% assign color_size = color_swatch.size | minus: 4 %}
+          + {{- color_size -}}
+        	{% else %}
+          {% endif %}
+          
+  {% endif %}
+{% endfor %}
+        </div>
       </div>
 
     {% else %}
@@ -86,9 +114,9 @@
             {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
           </a>
 
-          <p>
-            <a href="#">{{ 'homepage.onboarding.product_title' | t }}</a>
-          </p>
+          <span class="product-title">
+            {{ 'homepage.onboarding.product_title' | t }}
+          </span>
 
           <p>
             {{ 1999 | money }}
@@ -97,26 +125,77 @@
       {% else %}
         <p>{{ 'collections.general.no_matches' | t }}</p>
       {% endif %}
-
+    
     {% endfor %}
   </div>
-  </div>
-  <div class="compare">
+    <div class="compare">
   <h3>Compare</h3>
+  <table class="comparison">
+  <tr>
+  <th><h3>The Starter Pack</h3></th>
+  <th><h3>The Good Life</h3></th>
+  <th><h3>Doin It Big</h3></th>
+  </tr>
+  <tr>
+  <td>
+  <table>
+    <tr>
+  <td>Sleep</td>
+  <td></td>
+  </tr>
+  <tr>
+  <td>Check</td>
+  <td>Twin XL Comforter & Sham</td>
+  </tr>
+  <tr>
+  <td>Check</td>
+  <td>2 Standard Pillows</td>
+  </tr>
+  <tr>
+  <td>Check</td>
+  <td>2 Fitted Sheets</td>
+  </tr>
+  <tr>
+  <td>Check</td>
+  <td>2 Standard Pillowcases</td>
+  </tr>
+  <tr>
+  <td>Check</td>
+  <td>Memory Foam Mattress Topper</td>
+  </tr>
+  <tr>
+  <td>Check</td>
+  <td></td>
+  </tr>
+  <tr>
+  <td></td>
+  <td></td>
+  </tr>
+  </table>
+  
+  </td>
+  </tr>
+  </table>
   </div>
-  <div class="two_sides">
-  <div class="side_one">
+  <div class="two-sides">
+  <div class="side-one">
   <h3>Lorem Ipsum</h3>
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dignissimos inventore aliquid pariatur officia. Fuga cum nihil, quas accusamus voluptas nemo cupiditate vero doloribus, ratione ex nisi eveniet expedita ab!</p>
   <img src="//via.placeholder.com/363x454" alt="">
   </div>
-   <div class="side_two">
+   <div class="side-two">
     <img src="//via.placeholder.com/363x454" alt="">
     <h3>Lorem Ipsum</h3>
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dignissimos inventore aliquid pariatur officia. Fuga cum nihil, quas accusamus voluptas nemo cupiditate vero doloribus, ratione ex nisi eveniet expedita ab!</p>
     </div>
   </div>
   {% section 'frequently_asked_questions' %}
+  </div>
+  </div>
+  </div>
+
+  
+  
   {% if paginate.pages > 1 %}
     {% include 'pagination' %}
   {% endif %}

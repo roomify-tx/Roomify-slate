@@ -1,0 +1,18 @@
+.faq-section {
+  @include media-query($medium-down){
+    width: 100vw;
+    padding: 0 16px;
+  }
+  width: 80vw;
+  margin: 1em auto;
+  h2 {
+    font-family: $karla;
+    font-weight: bold;
+  }
+  .more.faq {
+    text-align: center;
+    border: 2px solid #000000;
+    padding: 10px 20px;
+    display: block;
+  }
+}

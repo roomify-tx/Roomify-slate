@@ -1,5 +1,5 @@
 {% assign faqs = section.blocks %}
-<div>
+<div class="faq-section">
   <h2>{{section.settings.title}}</h2>
    <hr>
   {% if faqs %}
@@ -11,14 +11,14 @@
    </div> 
    {% endfor %}
    {% endif %}
+	 <span class="more faq"> More FAQ's</span>
 <script>
     $(document).ready(function($){
    $('.faq-item .faq-answer').hide();
-      $('.faq-item .expand').click(fuction(){
-      	$(this).next('.faq-answer').slideToggle(); 
-      });
-});
-   )};
+      //$('.faq-item .expand').click(fuction(){
+      //	$(this).next('.faq-answer').slideToggle(); 
+      //});
+}); 
   </script>  
   
 
